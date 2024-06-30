@@ -40,7 +40,7 @@ export default async function Page() {
                   <td className="py-2 px-3">{post.body}</td>
                   <td className="py-2 px-3">
                     <div className="flex">
-                      <Link href={`/admin/posts/edit/${post.id}`} className="text-indigo-600 hover:text-indigo-900 mr-2">Edit</Link>
+                      <Link href={`/admin/posts/${post.id}/edit`} className="text-indigo-600 hover:text-indigo-900 mr-2">Edit</Link>
                       <button className="text-red-600 hover:text-red-900">Delete</button>
                     </div>
                   </td>
