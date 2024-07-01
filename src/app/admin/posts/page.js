@@ -1,3 +1,4 @@
+import FormPostDelete from "@/app/components/forms/post/delete";
 import Link from "next/link";
 
 async function getData() {
@@ -41,7 +42,8 @@ export default async function Page() {
                   <td className="py-2 px-3">
                     <div className="flex">
                       <Link href={`/admin/posts/${post.id}/edit`} className="text-indigo-600 hover:text-indigo-900 mr-2">Edit</Link>
-                      <button className="text-red-600 hover:text-red-900">Delete</button>
+
+                      <FormPostDelete post={post}/>
                     </div>
                   </td>
                 </tr>
