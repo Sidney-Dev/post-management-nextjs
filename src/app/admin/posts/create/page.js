@@ -1,4 +1,4 @@
-import PostForm from "@/app/components/forms/post/create"
+import PostForm from "@/components/forms/post/create"
 
 export default function Page() {
 

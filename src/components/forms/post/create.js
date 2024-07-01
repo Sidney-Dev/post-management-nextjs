@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from 'react'
+import apiService from '@/services/apiService'
 import { useRouter } from 'next/navigation'
 
 export default function PostForm() {
@@ -8,7 +9,8 @@ export default function PostForm() {
     const router = useRouter()
     const [post, setPost] = useState({
         title: '',
-        body: ''
+        body: '',
+        user_id: 2
     })
 
     const createPostHandler = async (e) => {
@@ -16,28 +18,13 @@ export default function PostForm() {
         e.preventDefault()
         
         try {
-            const postRequestResponse = await fetch('https://jsonplaceholder.typicode.com/posts', {
-                method: 'POST',
-                body: JSON.stringify({
-                  ...post,
-                  userId: 1,
-                }),
-                headers: {
-                  'Content-type': 'application/json; charset=UTF-8',
-                },
-            })
-    
-            const postResponseData = await postRequestResponse.json()
-    
-            console.log(postResponseData) 
-
+            await apiService.createPost(post)
+            
             router.push("/admin/posts")
 
         } catch(error) {
-            //handle errors here
             console.log(error)
         }
-      
     }
 
     const inputUpdated = (e) => {
@@ -45,8 +32,6 @@ export default function PostForm() {
             ...post,
             [e.target.name]: e.target.value
         })
-        console.log(`Prop ${e.target.name}`)
-        console.log(`Value ${e.target.value}`)
     }
 
     return <>

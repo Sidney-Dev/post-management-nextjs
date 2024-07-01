@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
+import apiService from '@/services/apiService'
 
 export default function PostForm({ id }) {
 
@@ -9,18 +10,15 @@ export default function PostForm({ id }) {
 
     const [post, setPost] = useState({})
 
+    const fetchedPost = async () => {
+        const data = await apiService.fetchPostById(id)
+        console.log("fetchedPost data")
+        console.log(data)
+        setPost(data)
+    }
+
     useEffect(() => {
-        
-        const fetchedPost = async () => {
-            try {
-                const postRequestResponse = await fetch(`https://jsonplaceholder.typicode.com/posts/${id}`)
-                const postResponseData = await postRequestResponse.json()
-        
-                setPost(postResponseData)
-    
-            } catch(error) {
-            }
-        }
+
         fetchedPost()
 
     }, [])
@@ -30,22 +28,17 @@ export default function PostForm({ id }) {
         e.preventDefault()
       
         try {
-            const postRequestResponse = await fetch(`https://jsonplaceholder.typicode.com/posts/${id}`, {
-                method: 'PATCH',
-                body: JSON.stringify(post),
-                headers: {
-                    'Content-type': 'application/json; charset=UTF-8',
-                },
-            })
-            const postResponseData = await postRequestResponse.json()
+
+            const updateRequest = await apiService.updatePost(id, post)
             router.push("/admin/posts")
 
         } catch(error) {
+
         }
     }
 
     return <>
-        <form onSubmit={updatePostHandler} className="w-[600px] mx-auto" method='POST'>
+        <form onSubmit={updatePostHandler} className="w-[600px] mx-auto">
             <div className="col-span-full">
                 <label htmlFor="title" className="block text-base font-bold leading-6 text-gray-900">Title</label>
                 <div className="mt-2">

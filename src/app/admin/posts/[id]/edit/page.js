@@ -1,4 +1,4 @@
-import PostForm from "@/app/components/forms/post/update"
+import PostForm from "@/components/forms/post/update"
 
 export default function Page({ params }) {
 
