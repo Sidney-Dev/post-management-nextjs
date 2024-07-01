@@ -11,7 +11,7 @@ export default function AdminLayout({ children }) {
                 <SidebarNavigation></SidebarNavigation>
 
             </aside>
-            <section className="w-5/6">
+            <section className="w-5/6 mb-2 mt-5">
 
                 <main>
                     {children}
